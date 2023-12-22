@@ -15,6 +15,7 @@ function App() {
 
   useEffect(() => {
     fetchItems();
+    console.log(items)
   }, []);
 
   const fetchItems = async () => {
@@ -64,22 +65,6 @@ function App() {
     }
   };
 
-  const handleDeleteItem = async (index) => {
-    try {
-      const response = await fetch(`http://localhost:3001/api/items/${index}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        fetchItems();
-      } else {
-        console.error("Failed to delete item");
-      }
-    } catch (error) {
-      console.error("Error deleting item:", error);
-    }
-  };
-
   return (
     <div className="App">
       <h1>Items</h1>
@@ -88,9 +73,6 @@ function App() {
           <li key={index}>
             <strong>{item.name}</strong> - ${item.price} - {item.amount} in
             stock
-            <button type="button" onClick={() => handleDeleteItem(index)}>
-              Delete
-            </button>
           </li>
         ))}
       </ul>
